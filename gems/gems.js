@@ -94,7 +94,7 @@ var GEMS = (function () {
             // and keep it in the cookie
             userId = _getCookie("gems-user-id");
             if (!userId) {
-                userId = await GEMS.newUser();
+                userId = await newUser();
                 _setCookie("gems-user-id", userId, 365);
             }
 

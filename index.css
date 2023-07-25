@@ -1,12 +1,25 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
-    display:flex;
+    width: 100%;
+    height: 100%;
+}
+
+.frame {
+    display: flex;
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(49, 5, 160, 1) 12%, rgba(0, 212, 255, 1) 100%);
+
 }
 
 button {
-    button {
+    width: fit-content;
       appearance: button;
       backface-visibility: hidden;
       background-color: #405cf5;
@@ -32,11 +45,10 @@ button {
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      width: 100%;
     }
     
-    button-9:focus {
+    button:focus {
       box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
     }
-}
+
 
