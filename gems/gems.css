@@ -1,0 +1,26 @@
+.GEMS-scrim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GEMS-achievement-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GEMS-achievement-title {
+    display: inline;
+}
+
+.GEMS-achievement-image {
+    width: 100;
+    height: 100;
+    border-radius: 1.5px;
+    box-shadow: '4px 8px 36px #F4AAB9';
+}
+
+.GEMS-achievement-description {
+    margin: 60px;
+}

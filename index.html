@@ -1,1 +1,23 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+
+    <link rel="stylesheet" href="gems/gems.css">
+    <script src="gems/gems.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <button onclick="buttonClick()">Click me to achieve</button>
+    <script>
+        function buttonClick() {
+            GEMS.event("button1");
+        }
+
+        GEMS.init("apikey", "testapp");
+        GEMS.initUser() // no param=>use auto id and cookie
+    </script>
+</body>
+</html>
