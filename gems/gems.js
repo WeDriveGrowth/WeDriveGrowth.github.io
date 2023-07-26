@@ -21,13 +21,8 @@ var removeConfetti; //call to stop the confetti animation and remove all confett
 // global state
 //
 
-const _root = "http://ec2-52-8-59-36.us-west-1.compute.amazonaws.com:5001/api/";
-let _apiKey = null;
-let _appId = null;  // string, set by init
-let _userId = null; // string, set by initUser
-
-let _count = 5; // debug / local testing
-
+const _root = "https://bayz.ai/api/";
+let GEMS_state = {};
 
 var GEMS = (function () {
     //
@@ -65,47 +60,55 @@ var GEMS = (function () {
     // exposed API
     //
 
-    const init = function(apiKey, appId) {
-        _appId = appId;
-        _apiKey = apiKey;
-    };
-
-    const newUser = async function() {
-        // returns string id
+    const init = async function(params = {}) {
+        GEMS_state = {...params};
+        delete GEMS_state.apiKey;
+    
         try {
             if (LOCALTEST) {
-                return "myid";
+                return { 
+                    userId: "myid", 
+                    token: "my token"
+                };
             } else {
-                const response = await fetch(_root+"user/"+_appId, {
+                if (!params.userId && params.useCookie) {
+                    userId = _getCookie("gems-user-id");
+                }
+    
+                let url = _root+"user/"+
+                    params.appId+
+                    (params.userId?"/"+params.userId:"");
+
+                const response = await fetch(url, {
                     method: "POST",
                     headers: {
-                        apikey: _apiKey,
+                        apikey: params.apiKey,
                     },
                 });
                 const result = await response.json();
-                _userId = result.user_id;
-                return result.user_id;
+                GEMS_state.userId = result.user_id;
+                GEMS_state.token = result.token;
+
+                if (params.useCookie) {
+                    _setCookie("gems-user-id", GEMS_state.userId);
+                }
+
+                return { 
+                    userId: GEMS_state.userId, 
+                    token: GEMS_state.token,
+                };
             }
         } catch (error) {
             console.error("GEMS API error:")
             console.error(error);
             return null;
         }
+    }
 
-    };
-
-    const initUser = async function(userId) {
-        if (!userId) {
-            // client wants us to create an automatic one
-            // and keep it in the cookie
-            userId = _getCookie("gems-user-id");
-            if (!userId) {
-                userId = await newUser();
-                _setCookie("gems-user-id", userId, 365);
-            }
-
-        }
-        _userId = userId;
+    const setClientCredentials = function(appId, userId, token) {
+        GEMS_state.appId = appId;
+        GEMS_state.userId = userId;
+        GEMS_state.token = token;
     }
 
     const event = async function(name, data={}, options={displayAll:true}) {
@@ -124,13 +127,17 @@ var GEMS = (function () {
                     return {};
                 }
             } else {
-                const response = await fetch(_root+"tag/"+_appId, {
+                const response = await fetch(_root+"tag/"+GEMS_state.appId, {
                     method: "POST",
                     headers: {
-                        apikey: _apiKey,
+                        "Content-Type": "application/json",
+                        "Authorization": {
+                            "Bearer": GEMS_state.token,
+                        },
+                        "Accept": "application/json",
                     },
                     body: {
-                        user_id: _userId,
+                        user_id: GEMS_state.userId,
                         tagName: name,
                         localTime: _getLocalTime(),
                         data: data,
@@ -334,35 +341,22 @@ var GEMS = (function () {
     }
 
     return {
-        init: init,         // GEMS.init(apiKey, appId)
-        initUser: newUser,  // GEMS.newUser(userId)
-        initUser: initUser, // GEMS.initUser(userId)
-        event: event,       // GEMS.event(name, optionalData)
+        init: init,                                    // GEMS.init(apiKey, appId)
+        setClientCredentials: setClientCredentials,    // to set the credentials returned by init
+        event: event,                                  // GEMS.event(name, data, options)
     };
 })();
 
-// typical flow for new user:
-//
-// GEMS.init("mykey", "myappid");
-// const userId = await GEMS.newUser();
-// store the user id
-// ... life happens ...
-// GEMS.event("game completed", {level:5});
+// revised flow
+// const {userId, token} = await GEMS.init({apiKey:"mykey", appId:"myappid"});
+// // to use cookie, pass useCookie:true
 
+// // if the above call happened on the server, report results and appId to the client, then:
+// GEMS.setClientCredentials(appId, userId, token);
 
-// typical flow for existing user:
-//
-// GEMS.init("mykey", "myappid");
-// GEMS.initUser(userId);
-// ... life happens ...
-// GEMS.event("game completed", {level:5});
+// // ... life happens ...
+// GEMS.event("game completed", {value:50});
 
-// automatic user managment in cookie:
-//
-// GEMS.init("mykey", "myappid");
-// GEMS.initUser();
-// ... life happens ...
-// GEMS.event("game completed", {level:5});
 
 
 

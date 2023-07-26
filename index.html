@@ -12,7 +12,7 @@
 <body>
     <div class="frame">
         <h2>Score:&nbsp;<span id="score">0</span></h2>
-        <button id="start" onclick="start()">Start the game</button>
+        <button disabled id="start" onclick="start()">Start the game</button>
         <div>
         <button disabled id="play" onclick="score()">Score&nbsp;</button>
         <input disabled id="scorebox" type="number" value="10"/>&nbsp; points
@@ -20,26 +20,27 @@
     <button disabled id="finish" onclick="finish()">Finish the game</button>
     </div>
     <script>
-        // init and first event
-        const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
-        const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
-        GEMS.init(apiKey, appId);
-        GEMS.initUser().then(()=>{
-            GEMS.event("Demo-GamePage");
-        });
-
-        // game logic   
+        // game elements   
         const scoreSpan = document.querySelector("#score");
         const startButton = document.querySelector("#start");
         const playButton = document.querySelector("#play");
         const scoreBox = document.querySelector("#scorebox");
         const finishButton = document.querySelector("#finish");
 
+        // init and first event
+        const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
+        const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
+        GEMS.init(apiKey, appId).then(()=>{
+            GEMS.event("Demo-GamePage");
+            startButton.disabled = false;
+        });
+
         function start() {
             GEMS.event("Demo-GameStarted");
             scoreSpan.innerText = "0";
             playButton.disabled = false;
             scoreBox.disabled = false;
+            startButton.disabled = true;
         }
 
         function score() {

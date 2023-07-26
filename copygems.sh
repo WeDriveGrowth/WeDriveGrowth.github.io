@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ../GEMS_Samples/components/js/gems.*  gems
+cp ../GEMS_Samples/src/gems.*  gems
