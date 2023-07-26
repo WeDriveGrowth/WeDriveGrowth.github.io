@@ -112,10 +112,10 @@ var GEMS = (function () {
         let result;
         try {
             if (LOCALTEST) {
-                if (--_count === 0) {
+                if (data.value > 50) {
                     result = {
                         achievements: [{
-                            title: "You won!",
+                            title: "You scored more than 50 points!",
                             image: "https://d2c8cl134xhhwp.cloudfront.net/trophy.png",
                             description: "Have a trophy!",
                         }],
@@ -124,7 +124,7 @@ var GEMS = (function () {
                     return {};
                 }
             } else {
-                const response = await fetch(_root+"tag"+_appId, {
+                const response = await fetch(_root+"tag/"+_appId, {
                     method: "POST",
                     headers: {
                         apikey: _apiKey,
@@ -172,7 +172,7 @@ var GEMS = (function () {
         title.innerText = achievement.title;
         const image = document.createElement("img");
         image.className = "GEMS-achievement-image";
-        image.src = _imageRoot+achievement.image;
+        image.src = achievement.image;
         const description = document.createElement("h3");
         description.className = "GEMS-achievement-description";
         description.innerText = achievement.description;

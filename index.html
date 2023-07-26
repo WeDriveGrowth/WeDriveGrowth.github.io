@@ -14,10 +14,10 @@
         <h2>Score:&nbsp;<span id="score">0</span></h2>
         <button id="start" onclick="start()">Start the game</button>
         <div>
-        <button id="play" onclick="score()">Score&nbsp;</button>
-        <input id="scorebox" type="number" value="10"/>&nbsp; points
+        <button disabled id="play" onclick="score()">Score&nbsp;</button>
+        <input disabled id="scorebox" type="number" value="10"/>&nbsp; points
         </div>
-    <button id="finish" onclick="finish()">Finish the game</button>
+    <button disabled id="finish" onclick="finish()">Finish the game</button>
     </div>
     <script>
         // init and first event
@@ -38,6 +38,8 @@
         function start() {
             GEMS.event("Demo-GameStarted");
             scoreSpan.innerText = "0";
+            playButton.disabled = false;
+            scoreBox.disabled = false;
         }
 
         function score() {
@@ -48,10 +50,14 @@
             }
             n += nNew;
             scoreSpan.innerText = String(n);
+            finishButton.disabled = false;
         }
 
         function finish() {
             GEMS.event("Demo-GameFinished", {value:Number(scoreSpan.innerText)});
+            playButton.disabled = true;
+            scoreBox.disabled = true;
+            finishButton.disabled = true;
         }
     </script>
 </body>
