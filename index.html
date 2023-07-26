@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>GEMS API Example</title>
 
     <link rel="stylesheet" href="gems/gems.css">
     <script src="gems/gems.js"></script>
@@ -11,26 +11,48 @@
 </head>
 <body>
     <div class="frame">
-        <button onclick="buttonClick(this)">Click me 5 times to achieve</button>
+        <h2>Score:&nbsp;<span id="score">0</span></h2>
+        <button id="start" onclick="start()">Start the game</button>
+        <div>
+        <button id="play" onclick="score()">Score&nbsp;</button>
+        <input id="scorebox" type="number" value="10"/>&nbsp; points
+        </div>
+    <button id="finish" onclick="finish()">Finish the game</button>
     </div>
     <script>
-        var count = 5;
+        // init and first event
+        const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
+        const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
+        GEMS.init(apiKey, appId);
+        GEMS.initUser().then(()=>{
+            GEMS.event("Demo-GamePage");
+        });
 
-        function buttonClick(button) {
-            GEMS.event("button1");
-            if (count === 0) {
-                location.reload();
-                return;
-            }
-            count--;
-            button.innerText = "Click me "+count+" more time"+(count !== 1?"s":"")+" to achieve";
-            if (count === 0) {
-                button.style.display = "Click to reload";
-            }
+        // game logic   
+        const scoreSpan = document.querySelector("#score");
+        const startButton = document.querySelector("#start");
+        const playButton = document.querySelector("#play");
+        const scoreBox = document.querySelector("#scorebox");
+        const finishButton = document.querySelector("#finish");
+
+        function start() {
+            GEMS.event("Demo-GameStarted");
+            scoreSpan.innerText = "0";
         }
 
-        GEMS.init("apikey", "testapp");
-        GEMS.initUser() // no param=>use auto id and cookie
+        function score() {
+            let n = Number(scoreSpan.innerText);
+            let nNew = Number(scoreBox.value);
+            if (isNaN(nNew)){
+                nNew = 0;
+            }
+            n += nNew;
+            scoreSpan.innerText = String(n);
+        }
+
+        function finish() {
+            GEMS.event("Demo-GameFinished", {value:Number(scoreSpan.innerText)});
+        }
     </script>
 </body>
 </html>

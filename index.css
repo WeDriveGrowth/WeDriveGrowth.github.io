@@ -15,7 +15,8 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(49, 5, 160, 1) 12%, rgba(0, 212, 255, 1) 100%);
-
+    flex-direction: column;
+    color: white;
 }
 
 button {
