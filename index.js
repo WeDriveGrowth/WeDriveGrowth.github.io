@@ -1,9 +1,15 @@
+import {GEMS} from "bayz-gems-api";
+
 // game elements   
 const scoreSpan = document.querySelector("#score");
 const startButton = document.querySelector("#start");
 const playButton = document.querySelector("#play");
 const scoreBox = document.querySelector("#scorebox");
 const finishButton = document.querySelector("#finish");
+
+startButton.addEventListener("click", start);
+playButton.addEventListener("click", score);
+finishButton.addEventListener("click", finish);
 
 // init and first event
 const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
