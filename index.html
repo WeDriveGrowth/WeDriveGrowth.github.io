@@ -4,21 +4,18 @@
     <meta charset="UTF-8" />
     <title>GEMS API Example</title>
 
-    <link rel="stylesheet" href="gems/gems.css">
-    <script src="gems/gems.js"></script>
-
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="frame">
         <h2>Score:&nbsp;<span id="score">0</span></h2>
-        <button disabled id="start" onclick="start()">Start the game</button>
+        <button disabled id="start"">Start the game</button>
         <div>
-        <button disabled id="play" onclick="score()">Score&nbsp;</button>
+        <button disabled id="play">Score&nbsp;</button>
         <input disabled id="scorebox" type="number" value="10"/>&nbsp; points
         </div>
-    <button disabled id="finish" onclick="finish()">Finish the game</button>
+    <button disabled id="finish">Finish the game</button>
     </div>
-    <script src="index.js" type="module"></script>
+    <script src="index-bundle.js" type="module"></script>
 </body>
 </html>

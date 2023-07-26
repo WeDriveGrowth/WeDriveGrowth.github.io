@@ -1,5 +1,13 @@
 {
   "dependencies": {
-    "bayz-gems-api": "^0.1.3"
+    "bayz-gems-api": "^0.1.8"
+  },
+  "scripts": {
+    "tsc": "tsc --build --verbose",
+    "build": "node esbuild.config.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.54",
+    "typescript": "^4.5.4"
   }
 }

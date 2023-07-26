@@ -1,11 +1,11 @@
 import {GEMS} from "bayz-gems-api";
 
 // game elements   
-const scoreSpan = document.querySelector("#score");
-const startButton = document.querySelector("#start");
-const playButton = document.querySelector("#play");
-const scoreBox = document.querySelector("#scorebox");
-const finishButton = document.querySelector("#finish");
+const scoreSpan = document.querySelector("#score")! as HTMLSpanElement;
+const startButton = document.querySelector("#start")! as HTMLButtonElement;
+const playButton = document.querySelector("#play")! as HTMLButtonElement;
+const scoreBox = document.querySelector("#scorebox")! as HTMLButtonElement;
+const finishButton = document.querySelector("#finish")! as HTMLButtonElement;
 
 startButton.addEventListener("click", start);
 playButton.addEventListener("click", score);
@@ -14,9 +14,9 @@ finishButton.addEventListener("click", finish);
 // init and first event
 const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
 const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
-GEMS.init(apiKey, appId).then(()=>{
+GEMS.init({apiKey, appId}).then(()=>{
     GEMS.event("Demo-GamePage");
-    startButton.disabled = false;
+    startButton!.disabled = false;
 });
 
 function start() {
@@ -43,4 +43,5 @@ function finish() {
     playButton.disabled = true;
     scoreBox.disabled = true;
     finishButton.disabled = true;
+    startButton.disabled = false;
 }
