@@ -11,11 +11,22 @@
 </head>
 <body>
     <div class="frame">
-        <button onclick="buttonClick()">Click me to achieve</button>
+        <button onclick="buttonClick(this)">Click me 5 times to achieve</button>
     </div>
     <script>
-        function buttonClick() {
+        var count = 5;
+
+        function buttonClick(button) {
             GEMS.event("button1");
+            if (count === 0) {
+                location.reload();
+                return;
+            }
+            count--;
+            button.innerText = "Click me "+count+" more time"+(count !== 1?"s":"")+" to achieve";
+            if (count === 0) {
+                button.style.display = "Click to reload";
+            }
         }
 
         GEMS.init("apikey", "testapp");
