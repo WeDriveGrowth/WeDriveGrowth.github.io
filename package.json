@@ -1,10 +1,11 @@
 {
   "dependencies": {
-    "bayz-gems-api": "^0.1.18"
+    "bayz-gems-api": "^0.1.22"
   },
   "scripts": {
     "tsc": "tsc --build --verbose",
-    "build": "node esbuild.config.js"
+    "build": "rm index-bundle.js && node esbuild.config.js",
+    "localhost": "npx http-server"
   },
   "devDependencies": {
     "esbuild": "^0.14.54",
