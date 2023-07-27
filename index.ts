@@ -14,7 +14,7 @@ finishButton.addEventListener("click", finish);
 // init and first event
 const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
 const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
-GEMS.init({apiKey, appId}).then(()=>{
+GEMS.init({apiKey:apiKey, appId:appId}).then(()=>{
     GEMS.event("Demo-GamePage");
     startButton!.disabled = false;
 });
