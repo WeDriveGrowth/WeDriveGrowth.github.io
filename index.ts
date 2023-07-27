@@ -1,4 +1,4 @@
-import {GEMS} from "bayz-gems-api";
+import {GEMS} from "bayze-gems-api";
 
 // game elements   
 const scoreSpan = document.querySelector("#score")! as HTMLSpanElement;
