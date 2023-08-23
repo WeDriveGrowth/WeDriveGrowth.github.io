@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bayze-gems-api": "^0.1.6"
+    "bayze-gems-api": "^0.1.7"
   },
   "scripts": {
     "tsc": "tsc --build --verbose",
