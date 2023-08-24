@@ -13,6 +13,7 @@ finishButton.addEventListener("click", finish);
 
 // version
 (document.getElementById("version") as HTMLSpanElement).innerText = GEMS.version();
+GEMS.debug(true);
 // init and first event
 const apiKey = "i2slulN)U%7xvMoVACLSEYogOekNQoWE";
 const appId = "37675ac8-c0c0-42e9-8291-0f9529df5d47";
